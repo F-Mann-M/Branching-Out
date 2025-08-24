@@ -1,11 +1,13 @@
 import json
 
 def load_file(file_path):
+    """takes in a path of a json file and loads it"""
     with open(file_path, "r") as file:
         return json.load(file)
 
 
 def filter_users_by_name():
+    """loads a list of dictionaries from a json, asks user for a name and filtered dictionary by name"""
     users = load_file("users.json")
     name = input("Enter a name to filter users: ").strip()
     filtered_users = [user for user in users if user["name"].lower() == name.lower()]
@@ -14,6 +16,7 @@ def filter_users_by_name():
         print(user)
 
 def filter_users_by_age():
+    """loads a list of dictionaries from a json, asks user for age and filtered dictionary by age"""
     users = load_file("users.json")
     age = int(input("Enter age to filter users: "))
     filtered_users = [user for user in users if user["age"] == age]
@@ -23,6 +26,7 @@ def filter_users_by_age():
 
 
 def filter_users_by_email():
+    """loads a list of dictionaries from a json, asks user for a email and filtered dictionary by email"""
     users = load_file("users.json")
     email = input("Enter an email to filer users: ")
     filter_users = [user for user in users if user["email"] == email]
@@ -32,15 +36,17 @@ def filter_users_by_email():
 
 
 if __name__ == "__main__":
-
+    # dispatch table to load function
     user_choice = {
         "name": filter_users_by_name,
         "age": filter_users_by_age,
         "email": filter_users_by_email
     }
 
+    # prompt user to choos a filter option
     filter_option = input("What would you like to filter by? (name, age, email): ").strip().lower()
 
+    # calls the functions
     if filter_option in user_choice:
         user_choice[filter_option]()
     else:
